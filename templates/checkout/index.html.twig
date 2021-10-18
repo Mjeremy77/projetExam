@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+
+{{ include ("partials/title_section.html.twig", {'name':'Commande'})}}
+
+<div class="section">
+	<div class="container">
+        {{ form_start(checkout, {action: path('checkout_confirm')}) }}
+        <div class="row">
+        	<div class="col-md-6">
+                <div class="heading_s1">
+                        <h4>Votre adresse de livraison</h4>
+                        <div class="content">
+                            {{ form_widget(checkout.address) | replace({'[spr]' : '<br>'}) | raw }}
+                        </div>
+                        <a href="{{ path('address_new')}}" class="btn btn-fill-out btn-block mt-1">Ajouter une nouvelle adresse</a>
+                </div>
+                <div class="heading_s1">
+                    <h4>Votre livreur</h4>
+                    <div class="content ">
+                         {{ form_widget(checkout.carrier)| replace({'[spr]' : '<br>'}) | raw }}
+                    </div>
+                </div>
+                <div class="heading_s1">
+                    <h4>Information complémentaire</h4>
+                    <div class="content form-group mb-0">
+                        {{ form_widget(checkout.informations) | replace({'[spr]' : '<br>'}) | raw }}
+                    </div>
+                </div>
+          </div>
+
+          <div class="col-md-6">
+                <div class="order_review">
+                    <div class="heading_s1">
+                        <h4>Votre commande</h4>
+                    </div>
+                    <div class="table-responsive order_table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for element in basket.products %}
+                                    
+                               
+                                    <tr>
+                                        <td> {{element.product.name}} <span class="product-qty">x {{element.quantity}}</span></td>
+                                        <td>€ {{element.product.price/100}}€</td>
+                                    </tr>
+                                {% endfor %}
+                                    
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>SubTotal HT</th>
+                                    <td class="product-subtotal">€{{basket.data.subTotalHT}}€</td>
+                                </tr>
+                                <tr>
+                                    <th>Taxe</th>
+                                    <td class="product-subtotal">€{{basket.data.Taxe}}€</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td class="product-subtotal">€{{basket.data.subTotalTTC}}€</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="payment_method">
+                        <div class="heading_s1">
+                            <h4>Paiement</h4>
+                        </div>
+
+                    </div>
+                    <button type="submit" id="checkout-button" class="btn btn-fill-out btn-block">Commander</button>
+                </div>
+          </div>
+        </div>
+         {{ form_end(checkout) }}
+    </div>
+</div>
+
+
+{% endblock %}

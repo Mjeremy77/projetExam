@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Coordonnées{% endblock %}
+
+{% block body %}
+    <h1>Mes Adresse</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ address.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ address.fullname }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ address.address }}</td>
+            </tr>
+            <tr>
+                <th>Complement</th>
+                <td>{{ address.complement }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ address.phone }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ address.city }}</td>
+            </tr>
+            <tr>
+                <th>Code Postal</th>
+                <td>{{ address.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ address.country }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('address_index') }}">Retour à la liste</a>
+
+    <a href="{{ path('address_edit', {'id': address.id}) }}">editer</a>
+
+    {{ include('address/_delete_form.html.twig') }}
+{% endblock %}
